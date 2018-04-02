@@ -1,0 +1,16 @@
+services:
+#    app_admin.example:
+#        class: App\Bundle\AdminBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    apikey.userprovider:
+        class: App\Bundle\AdminBundle\Security\ApiKeyUserProvider
+        arguments: ['@snc_redis.default','@logger','@user.cache','@doctrine.orm.entity_manager']
+    apikey.authenticator:
+        class: App\Bundle\AdminBundle\Security\ApiKeyAuthenticator
+    App\Bundle\AdminBundle\Controller\:
+        resource: '../../Controller'
+        public: true
+        tags: ['controller.service_arguments']
+    user.cache:
+        class: App\Bundle\AdminBundle\Security\UserCacheManager
+        arguments: ['@cache.app']

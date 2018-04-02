@@ -1,0 +1,274 @@
+swagger: '2.0'
+info:
+  title: 后台接口文档
+  description:
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+  version: 1.0.0
+host:
+basePath: /
+schemes:
+  - http
+paths:
+  /api/user:
+    get:
+      tags:
+        - userInfo
+      summary: 用户管理
+      parameters:
+        - name: page
+          in: query
+          description: 页码
+          type: integer
+        - name: unick
+          in: query
+          description: 昵称
+          type: string
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/userInfoResponse'
+      security:
+        - api_key: []
+  /api/user/delete/{id}:
+    delete:
+      tags:
+        - userInfo
+      summary: 用户管理
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          description: 用户id
+          type: integer
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/ApiResponse'
+      security:
+        - api_key: []
+  /api/room:
+    get:
+      tags:
+        - roomInfo
+      summary: 房间信息
+      parameters:
+        - name: room_type
+          in: query
+          required: false
+          description: 房间类型
+          type: string
+        - name: room_state
+          in: query
+          required: false
+          description: 房间状态
+          type: string
+        - name: page
+          in: query
+          required: false
+          description: 页码
+          type: integer
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/roomInfoResponse'
+      security:
+        - api_key: []
+  /api/simplelogin:
+    post:
+      tags:
+        - userInfo
+      summary: 管理员登陆
+      parameters:
+        - name: username
+          in: formData
+          required: true
+          description: 账号
+          type: string
+        - name: password
+          in: formData
+          required: true
+          description: 密码
+          type: string
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/ApiResponse'
+definitions:
+  ApiResponse:
+    title: 接口返回对象
+    description: 接口返回对象
+    properties:
+      code:
+        description: 状态码
+        type: string
+        example: SUCCESS
+      msg:
+        description: 接口返回描述
+        type: string
+        example: SUCCESS
+    type: object
+  userInfoResponse:
+    title: 用户管理
+    description: 用户管理
+    properties:
+      msg:
+        type: string
+        example: SUCCESS
+      code:
+        type: string
+        example: SUCCESS
+      count:
+        type: integer
+        example: 50
+      data:
+        properties:
+          uid:
+            type: string
+            description: 序号
+            example: '87'
+          uuid:
+            type: string
+            description: 游戏ID
+            example: '87'
+          unick:
+            type: string
+            description: 用户昵称
+            example: '闭眼就天黑'
+          uphone:
+            type: integer
+            description: 手机号
+            example: 12345678958
+          uface:
+            description: 头像
+            type: string
+            example: 1
+          uemail:
+            description: 邮箱
+            type: string
+            example: '123548477@qq.com'
+          usex:
+            description: 性别
+            type: string
+            example: '男'
+          uvip:
+            description: vip等级
+            type: integer
+            example: 1
+          u_token:
+            description: 游客key
+            type: string
+            example: 1000
+          u_type:
+            description: 是否是游客
+            type: string
+            example: 1000
+          status:
+            description: 用户状态
+            type: string
+            example: '正常'
+          regist_ip:
+            description: 注册地址
+            type: string
+            example: '145.366.254.45'
+          regist_time:
+            description: 注册时间
+            type: string
+            example: '2017-08-12'
+          login_ip:
+            description: 登录ip
+            type: string
+            example: '154.36.250.12'
+          login_time:
+            description: 登录时间
+            type: string
+            example: '2017-08-23'
+          ugold:
+            description: 用户金币数量
+            type: integer
+            example: 1000
+          ubank:
+            description: 保险柜(银行)金币数量
+            type: integer
+            example: '11'
+          ucard:
+            description: 房卡数量
+            type: integer
+            example: '1'
+          roomid:
+            description: 当前所在房间
+            type: integer
+            example: '201708'
+        type: object
+    type: object
+  roomInfoResponse:
+    title: 房间信息
+    description: 房间信息
+    properties:
+      msg:
+        type: string
+        example: SUCCESS
+      code:
+        type: string
+        example: SUCCESS
+      count:
+        type: integer
+        example: 50
+      data:
+        properties:
+          room_id:
+            type: integer
+            description: 房间ID
+            example: '87'
+          jushu:
+            type: string
+            description: 局数
+            example: '4局'
+          renshu:
+            description: 人数
+            type: string
+            example: '4人'
+          play:
+            description: 玩法
+            type: string
+            example: '可下码'
+          liudi:
+            description: 留底排数
+            type: string
+            example: '留14张底牌'
+          room_type:
+            description: 游戏类型(数字)
+            type: integer
+            example: 11
+          room_type_name:
+            description: 游戏类型（文字）
+            type: string
+            example: '麻将游戏'
+          room_state:
+            description: 房间状态(数字)
+            type: integer
+            example: 1
+          room_state_name:
+            description: 房间状态(文字)
+            type: string
+            example: '正常'
+          create_time:
+            description: 创建时间
+            type: string
+            example: '2017-12-02'
+          homeowners:
+            description: 房主游戏ID
+            type: integer
+            example: 1
+        type: object
+    type: object
+securityDefinitions:
+  api_key:
+    type: apiKey
+    name: Authorization
+    in: header

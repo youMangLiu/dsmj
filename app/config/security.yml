@@ -1,0 +1,18 @@
+# To get started with security, check out the documentation:
+# https://symfony.com/doc/current/security.html
+security:
+    providers:
+        api_key_user_provider:
+            id: apikey.userprovider
+        our_db_provider:
+            entity:
+                class: AppLoginBundle:Login
+    firewalls:
+        no-auth:
+            pattern: ^/(swagger|_profiler|_wdt|css|images|js|api\/simplelogin)
+            security: false
+        main:
+            stateless: true
+            simple_preauth:
+                authenticator: apikey.authenticator
+            provider: api_key_user_provider

@@ -1,0 +1,3351 @@
+swagger: '2.0'
+info:
+  title: 便利店报表接口文档
+  description:
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+  version: 1.0.0
+host:
+basePath: /
+schemes:
+  - http
+paths:
+  /report/sales/weekly:
+    get:
+      tags:
+        - report
+      summary: 销量汇总周报表
+      parameters:
+        - name: page
+          in: query
+          description: 页码
+          type: integer
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/weeklySalesResponse'
+      security:
+        - api_key: []
+  /report/sales/export-weekly:
+    get:
+      tags:
+        - report
+      summary: 导出销量汇总周报表
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/ApiResponse'
+      security:
+        - api_key: []
+  /report/sales/export-monthly:
+    get:
+      tags:
+        - report
+      summary: 导出销量汇总月报表
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/ApiResponse'
+      security:
+        - api_key: []
+  /report/refund/weekly:
+    get:
+      tags:
+        - refund-summary
+      summary: 退款汇总周报表
+      parameters:
+        - name: page
+          in: query
+          description: 页码
+          type: integer
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/commonSalesResponse'
+      security:
+        - api_key: []
+  /report/sales/monthly:
+    get:
+      tags:
+        - report
+      summary: 销量汇总月报表
+      parameters:
+        - name: page
+          in: query
+          description: 页码
+          type: integer
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/weeklySalesResponse'
+      security:
+        - api_key: []
+  /report/refund/monthly:
+    get:
+      tags:
+        - refund-summary
+      summary: 退款汇总月报表
+      parameters:
+        - name: page
+          in: query
+          description: 页码
+          type: integer
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/commonSalesResponse'
+      security:
+        - api_key: []
+  /report/refund/export-monthly:
+    get:
+      tags:
+        - refund-summary
+      summary: 导出退货汇总月报表
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/ApiResponse'
+      security:
+        - api_key: []
+  /report/refund/export-weekly:
+    get:
+      tags:
+        - refund-summary
+      summary: 导出退货汇总周报表
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/ApiResponse'
+      security:
+        - api_key: []
+  /report/check/monthly:
+    get:
+      tags:
+        - goodsCheck
+      summary: 商品盘点汇总月报表
+      parameters:
+        - name: month
+          in: query
+          required: false
+          description: 月份
+          type: string
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/checkGoodsResponse'
+      security:
+        - api_key: []
+  /report/check/export-monthly:
+    get:
+      tags:
+        - goodsCheck
+      summary: 商品盘点汇总月导出
+      parameters:
+        - name: month
+          in: query
+          required: false
+          description: 月份
+          type: string
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/ApiResponse'
+      security:
+        - api_key: []
+  /report/sales/export-daily:
+    get:
+      tags:
+        - report
+      summary: 销量汇总日报表（导出报表）
+      parameters:
+        - name: day
+          in: query
+          required: true
+          description: 日期
+          type: string
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/ApiResponse'
+      security:
+        - api_key: []
+  /report/sales/daily:
+    get:
+      tags:
+        - report
+      summary: 销量汇总日报表
+      parameters:
+        - name: day
+          in: query
+          required: true
+          description: 日期
+          type: string
+        - name: sort_name
+          in: query
+          description: 排序的字段名称
+          type: string
+          required: false
+        - name: sort
+          in: query
+          description: 排序
+          type: string
+          required: false
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/dailySales'
+      security:
+        - api_key: []
+  /report/sales/chart:
+    get:
+      tags:
+        - report
+      summary: 销量汇总日报表(图表)
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/chartSales'
+      security:
+        - api_key: []
+  /report/profit/monthly:
+    get:
+      tags:
+        - report
+      summary: 利润汇总报表
+      parameters:
+        - name: month
+          in: query
+          description: 月
+          type: string
+          required: false
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/totalProfitResponse'
+      security:
+        - api_key: []
+  /report/profit/export:
+    get:
+      tags:
+        - report
+      summary: 利润汇总报表(导出)
+      parameters:
+        - name: month
+          in: query
+          description: 月
+          type: string
+          required: false
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/ApiResponse'
+      security:
+        - api_key: []
+  /report/profit/detail:
+    get:
+      tags:
+        - report
+      summary: 利润汇总报表详情
+      parameters:
+        - name: day
+          in: query
+          description: 日期
+          type: string
+          required: true
+        - name: sort_name
+          in: query
+          description: 排序的字段
+          type: string
+          required: false
+        - name: sort
+          in: query
+          description: 排序
+          type: string
+          required: false
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/totalProfitResponse'
+      security:
+        - api_key: []
+  /report/profit/export-detail:
+    get:
+      tags:
+        - report
+      summary: 利润汇总详情页(导出)
+      parameters:
+        - name: day
+          in: query
+          description: 日期
+          type: string
+          required: true
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/ApiResponse'
+      security:
+        - api_key: []
+  /report/profit/chart:
+    get:
+      tags:
+        - report
+      summary: 利润汇总图表
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/profitChartResponse'
+      security:
+        - api_key: []
+  /report/price/monthly:
+    get:
+      tags:
+        - report
+      summary: 当月均值报表
+      parameters:
+        - name: day
+          in: query
+          description: 日期
+          type: string
+          required: true
+        - name: sort_name
+          in: query
+          description: 排序的字段
+          type: string
+          required: false
+        - name: sort
+          in: query
+          description: 排序
+          type: string
+          required: false
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/avgSales'
+      security:
+        - api_key: []
+  /report/price/update:
+    post:
+      tags:
+        - report
+      summary: 更新当月均值总床位数
+      parameters:
+      - name: data
+        in: body
+        description: 日期
+        required: true
+        schema:
+          type: array
+          items:
+            $ref: '#/definitions/updateAvgSales'
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/ApiResponse'
+      security:
+        - api_key: []
+  /report/price/chart:
+    get:
+      tags:
+        - report
+      summary: 当月均值图表
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/avgSalesChart'
+      security:
+        - api_key: []
+  /report/refund/daily:
+    get:
+      tags:
+        - refund-summary
+      summary: 退货汇总报表
+      parameters:
+        - name: month
+          in: query
+          required: true
+          description: 月份
+          type: string
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/dailyRefund'
+      security:
+        - api_key: []
+  /report/refund/depot:
+    get:
+      tags:
+        - refund-summary
+      summary: 退货汇总门店日报表
+      parameters:
+        - name: day
+          in: query
+          required: true
+          description: 日期
+          type: string
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/depotRefundDetail'
+      security:
+        - api_key: []
+  /report/refund/depot-goods:
+    get:
+      tags:
+        - refund-summary
+      summary: 退货汇总门店退款详情
+      parameters:
+        - name: day
+          in: query
+          required: true
+          description: 日期
+          type: string
+        - name: depot_id
+          in: query
+          required: true
+          description: 便利店id
+          type: integer
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/depotRefundGoodsDetail'
+      security:
+        - api_key: []
+  /report/refund/goods:
+    get:
+      tags:
+        - refund-summary
+      summary: 某天退货总商品列表
+      parameters:
+        - name: day
+          in: query
+          required: true
+          description: 日期
+          type: string
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/refundGoods'
+      security:
+        - api_key: []
+  /report/sales/total:
+    get:
+      tags:
+        - report
+      summary: 销量汇总报表
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/totalSales'
+      security:
+        - api_key: []
+  /report/integral/collect:
+    get:
+      tags:
+        - report
+      summary: 积分汇总报表
+      parameters:
+        - name: page
+          in: query
+          description: 页码
+          type: integer
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/integralCollectResponse'
+      security:
+        - api_key: []
+  /report/profit:
+    get:
+      tags:
+        - report
+      summary: 利润报表
+      parameters:
+        - name: start_time
+          in: query
+          description: 开始时间
+          required: false
+          type: string
+        - name: end_time
+          in: query
+          description: 结束时间
+          required: false
+          type: string
+        - name: page
+          in: query
+          description: 页码
+          type: integer
+        - name: size
+          in: query
+          description: 每页条数
+          type: integer
+        - name: depot_id
+          in: query
+          description: 提货点id
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/report'
+      security:
+        - api_key: []
+  /report/sales:
+    get:
+      tags:
+        - report
+      summary: 销量报表
+      parameters:
+        - name: start_time
+          in: query
+          description: 开始时间
+          required: false
+          type: string
+        - name: end_time
+          in: query
+          description: 结束时间
+          required: false
+          type: string
+        - name: depot_id
+          in: query
+          description: 提货点id
+          required: true
+          type: integer
+        - name: title
+          in: query
+          description: 商品名称
+          required: false
+          type: string
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/sales'
+      security:
+        - api_key: []
+  /report/integral/send:
+    get:
+      tags:
+        - report
+      summary: 积分发放情况表
+      parameters:
+        - name: page
+          in: query
+          description: 页码
+          type: integer
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/integralSendResponse'
+      security:
+        - api_key: []
+  /report/integral/send-chart:
+    get:
+      tags:
+        - report
+      summary: 积分发放情况表(图表)
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/integralSendChart'
+      security:
+        - api_key: []
+  /report/coupon:
+    get:
+      tags:
+        - report
+      summary: 优惠券统计表
+      parameters:
+        - name: page
+          in: query
+          description: 页码
+          type: integer
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/couponResponse'
+      security:
+        - api_key: []
+  /report/dailyGoodsCheck:
+      get:
+        tags:
+          - goodsCheck
+        summary: 商品盘点日报表
+        parameters:
+          - name: day
+            in: query
+            description: 时间
+            required: false
+            type: string
+          - name: depot_id
+            in: query
+            description: 门店id
+            required: true
+            type: integer
+        responses:
+          '200':
+            description: '[SUCCESS]设置成功'
+            schema:
+              $ref: '#/definitions/dailyGoodsCheck'
+        security:
+          - api_key: []
+  /report/dailyGoodsCheckExport:
+      get:
+        tags:
+          - goodsCheck
+        summary: 商品盘点日报表导出
+        parameters:
+          - name: day
+            in: query
+            description: 时间
+            required: false
+            type: string
+          - name: depot_id
+            in: query
+            description: 门店id
+            required: true
+            type: integer
+        responses:
+          '200':
+            description: '[SUCCESS]设置成功'
+            schema:
+              $ref: '#/definitions/ApiResponse'
+        security:
+          - api_key: []
+  /report/dailySales:
+      get:
+        tags:
+          - report
+        summary: 销量汇总日报表
+        parameters:
+          - name: day
+            in: query
+            description: 时间
+            required: true
+            type: string
+        responses:
+          '200':
+            description: '[SUCCESS]设置成功'
+            schema:
+              $ref: '#/definitions/dailySales'
+        security:
+          - api_key: []
+  /report/dailyWastageList:
+      get:
+        tags:
+          - report
+        summary: 损耗汇总日报表
+        parameters:
+          - name: page
+            in: query
+            description: 页码
+            required: false
+            type: integer
+        responses:
+          '200':
+            description: '[SUCCESS]设置成功'
+            schema:
+              $ref: '#/definitions/dailyWastageList'
+        security:
+          - api_key: []
+  /report/goodsWastageList:
+      get:
+        tags:
+          - report
+        summary: 损耗商品详情表
+        parameters:
+          - name: day
+            in: query
+            description: 日期
+            required: true
+            type: string
+          - name: depot_id
+            in: query
+            description: 门店id
+            required: true
+            type: integer
+        responses:
+          '200':
+            description: '[SUCCESS]设置成功'
+            schema:
+              $ref: '#/definitions/goodsWastageList'
+        security:
+          - api_key: []
+  /report/monthWastageList:
+      get:
+        tags:
+          - report
+        summary: 损耗汇总月报表
+        parameters:
+          - name: page
+            in: query
+            description: 页码
+            required: false
+            type: integer
+        responses:
+          '200':
+            description: '[SUCCESS]设置成功'
+            schema:
+              $ref: '#/definitions/monthWastageList'
+        security:
+          - api_key: []
+  /report/shipping:
+    get:
+      tags:
+        - report
+      summary: 配送报表
+      parameters:
+        - name: page
+          in: query
+          description: 页码
+          type: integer
+        - name: size
+          in: query
+          description: 每页数量
+          type: integer
+          default: 10
+        - name: depot_id
+          in: query
+          description: 提货点id
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/shipping'
+      security:
+        - api_key: []
+  /report/shippingCourier:
+      get:
+        tags:
+          - report
+        summary: 配送员报表
+        parameters:
+          - name: id
+            in: query
+            description: 配送报表id
+            required: true
+            type: integer
+        responses:
+          '200':
+            description: '[SUCCESS]成功'
+            schema:
+              $ref: '#/definitions/shippingCourier'
+        security:
+          - api_key: []
+  /report/shippingCourierOrder:
+      get:
+        tags:
+          - report
+        summary: 配送员订单列表
+        parameters:
+          - name: id
+            in: query
+            description: 配送员报表id
+            required: true
+            type: integer
+          - name: page
+            in: query
+            description: 页码
+            type: integer
+          - name: size
+            in: query
+            description: 每页数量
+            type: integer
+            default: 10
+        responses:
+          '200':
+            description: '[SUCCESS]成功'
+            schema:
+              $ref: '#/definitions/shippingCourierOrder'
+        security:
+          - api_key: []
+  /report/storeWastageList:
+      get:
+        tags:
+          - report
+        summary: 损耗门店详情表
+        parameters:
+          - name: day
+            in: query
+            description: 日期
+            required: true
+            type: string
+        responses:
+          '200':
+            description: '[SUCCESS]设置成功'
+            schema:
+              $ref: '#/definitions/storeWastageList'
+        security:
+          - api_key: []
+  /report/weekWastageList:
+      get:
+        tags:
+          - report
+        summary: 损耗汇总周报表
+        parameters:
+          - name: page
+            in: query
+            description: 页码
+            required: false
+            type: integer
+        responses:
+          '200':
+            description: '[SUCCESS]设置成功'
+            schema:
+              $ref: '#/definitions/weekWastageList'
+        security:
+          - api_key: []
+  /report/monthlyGoodsCheck:
+    get:
+      tags:
+        - goodsCheck
+      summary: 商品盘点月报表
+      parameters:
+        - name: month
+          description: 月份
+          in: query
+          required: false
+          type: string
+        - name: depot_id
+          description: 提货点ID
+          in: query
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/monthlyGoodsCheckResponse'
+      security:
+        - api_key: []
+  /report/monthlyGoodsCheckExport:
+    get:
+      tags:
+        - goodsCheck
+      summary: 商品盘点月报表导出
+      parameters:
+        - name: month
+          description: 月份
+          in: query
+          required: false
+          type: string
+        - name: depot_id
+          description: 提货点ID
+          in: query
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/ApiResponse'
+      security:
+        - api_key: []
+  /report/stockWarn:
+    get:
+      tags:
+        - report
+      summary: 库存报警
+      parameters:
+        - name: depot_id
+          description: 提货点ID
+          in: query
+          required: true
+          type: integer
+        - name: stock_type
+          description: 库存状态
+          in: query
+          required: false
+          type: string
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/stockWarnResponse'
+      security:
+        - api_key: []
+  /report/business/profit:
+    get:
+      tags:
+        - report
+      summary: 营业情况汇总表
+      parameters:
+        - name: day
+          in: query
+          description: 日期
+          type: integer
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/businessProfitResponse'
+      security:
+        - api_key: []
+  /report/business/profit-weekly:
+    get:
+      tags:
+        - report
+      summary: 营业情况汇总周表
+      parameters:
+        - name: page
+          in: query
+          description: 页码
+          type: integer
+        - name: size
+          in: query
+          description: 条数
+          type: integer
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/businessProfitWeeklyResponse'
+      security:
+        - api_key: []
+  /report/business/profit-monthly:
+    get:
+      tags:
+        - report
+      summary: 营业情况汇总月表
+      parameters:
+        - name: page
+          in: query
+          description: 页码
+          type: integer
+        - name: size
+          in: query
+          description: 条数
+          type: integer
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/businessProfitWeeklyResponse'
+      security:
+        - api_key: []
+  /report/refund/order/detail:
+    get:
+      tags:
+        - refund-summary
+      summary: 退货订单详情表
+      parameters:
+        - name: day
+          in: query
+          description: 日期
+          type: string
+        - name: depot_id
+          in: query
+          description: 便利店id
+          type: integer
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/refundOrderDetailResponse'
+      security:
+        - api_key: []
+  /report/refund/order/detail/export:
+    get:
+      tags:
+        - refund-summary
+      summary: 退货订单详情表导出
+      parameters:
+        - name: day
+          in: query
+          description: 日期
+          type: string
+        - name: depot_id
+          in: query
+          description: 便利店id
+          type: integer
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+      security:
+        - api_key: []
+  /report/purchase:
+    get:
+      tags:
+        - purchase
+      summary: 进货报表（实时查询）
+      parameters:
+        - name: page
+          in: query
+          description: 页码
+          type: integer
+        - name: size
+          in: query
+          description: 条数
+          type: integer
+        - name: operate_start_time
+          in: query
+          description: 操作开始时间
+          type: string
+        - name: operate_end_time
+          in: query
+          description: 操作结束时间
+          type: string
+        - name: purchase_start_time
+          in: query
+          description: 采购开始时间
+          type: string
+        - name: purchase_end_time
+          in: query
+          description: 采购结束时间
+          type: string
+        - name: title
+          in: query
+          description: 商品名称
+          type: string
+        - name: depot_id
+          in: query
+          description: 便利店id
+          type: integer
+          required: true
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/purchaseListResponse'
+      security:
+        - api_key: []
+  /report/of/recharge:
+    get:
+      tags:
+        - report
+      summary: 欧飞充值报表
+      parameters:
+        - name: page
+          in: query
+          description: 页码
+          type: integer
+        - name: size
+          in: query
+          description: 条数
+          type: integer
+        - name: start_time
+          in: query
+          description: 开始时间
+          type: string
+          required: false
+        - name: end_time
+          in: query
+          description: 结束时间
+          type: string
+          required: false
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/ofRechargeResponse'
+      security:
+        - api_key: []
+securityDefinitions:
+  api_key:
+    type: apiKey
+    name: Authorization
+    in: header
+definitions:
+  weeklySalesResponse:
+    title: 销量汇总周报表
+    description: 销量汇总周报表
+    properties:
+      msg:
+        type: string
+        example: SUCCESS
+      code:
+        type: string
+        example: SUCCESS
+      count:
+        type: integer
+        example: 50
+      data:
+        properties:
+          depot_name:
+            type: string
+            description: 便利店
+            example: '总部'
+          total_fee:
+            type: integer
+            description: 订单金额
+            example: 1
+          order_of_people:
+            description: 下单人数
+            type: integer
+            example: 1
+          order_num:
+            description: 下单数量
+            type: integer
+            example: 1
+          increase_percent:
+            description: 金额增长比例
+            type: string
+            example: '20%'
+          integral:
+            description: 积分
+            type: integer
+            example: 1000
+          pay_fee:
+            description: 实际支付金额
+            type: integer
+            example: 1000
+          max_fee:
+            description: 单笔最高金额
+            type: integer
+            example: 1000
+          day:
+            description: 日期
+            type: string
+            example: '2017/10/01-2017/10/15'
+        type: object
+    type: object
+  ApiResponse:
+    title: 接口返回对象
+    description: 接口返回对象
+    properties:
+      code:
+        description: 状态码
+        type: string
+        example: SUCCESS
+      msg:
+        description: 接口返回描述
+        type: string
+        example: SUCCESS
+    type: object
+  commonSalesResponse:
+    title: 退货汇总报表
+    description: 退货汇总报表
+    properties:
+      msg:
+        type: string
+        example: SUCCESS
+      code:
+        type: string
+        example: SUCCESS
+      count:
+        type: integer
+        example: 50
+      data:
+        properties:
+          day:
+            type: string
+            description: 日期
+            example: '2017/10/11-2017/11/15'
+          total_refund_count:
+            type: integer
+            description: 退货商品总数
+            example: 1
+          refund_money:
+            description: 退款金额
+            type: integer
+            example: 1
+          refund_integral:
+            description: 退货总积分
+            type: integer
+            example: 1
+          refund_stock_wastage:
+            description: 退货损耗金额
+            type: integer
+            example: 100
+          max_refund_money_depot:
+            description: 金额最高门店
+            type: string
+            example: '总部'
+          max_refund_count_title:
+            description: 数量最多商品
+            type: string
+            example: '水'
+        type: object
+    type: object
+  checkGoodsResponse:
+    title: 商品盘点汇总月报表
+    description: 商品盘点汇总月报表
+    properties:
+      msg:
+        type: string
+        example: SUCCESS
+      code:
+        type: string
+        example: SUCCESS
+      count:
+        type: integer
+        example: 50
+      data:
+        type: array
+        items:
+          properties:
+            num:
+              type: integer
+              description: 序号
+              example: 1
+            title:
+              type: string
+              description: 商品名
+              example: '格力高 百力滋微辣比萨味 65g克/盒'
+            last_month_stock:
+              description: 上月末库存数量
+              type: integer
+              example: 1
+            last_month_stock_money:
+              description: 上月末存货金额
+              type: string
+              example: 100
+            avg_price:
+              description: 本月进货--进价
+              type: string
+              example: 100
+            add_stock:
+              description: 本月进货--进货量
+              type: string
+              example: '100'
+            purchase_price:
+              description: 本月进货-采购金额合计
+              type: string
+              example: '100'
+            sales_num:
+              description: 本月销售-销售数量
+              type: string
+              example: '100'
+            current_price:
+              description: 本月销售-销售单价
+              type: string
+              example: '100'
+            sales_total_price:
+              description: 本月销售-销售金额
+              type: string
+              example: '100'
+            stock:
+              description: 本月末-剩余库存
+              type: string
+              example: '100'
+            weighting_avg_prince:
+              description: 本月末-加权平均单价
+              type: string
+              example: '100'
+            today_total:
+              description: 本月末-结余合计
+              type: string
+              example: '100'
+            last_month_purchase_avg_price:
+              description: 上月进货（进价、进货规格）
+              type: integer
+              example: '10'
+            last_month_purchase_price:
+              description: 上月进货（采购金额合计）
+              type: integer
+              example: '10'
+            last_month_add_stock:
+              description: 上月进货（进货量、进货规格）
+              type: integer
+              example: '10'
+            sale_avg_price:
+              description: 今日销售（销售成本）
+              type: integer
+              example: '10'
+          type: object
+    type: object
+  dailySales:
+    title: 销量汇总日报表
+    description: 销量汇总日报表
+    properties:
+      code:
+        type: string
+        example: SUCCESS
+      msg:
+        type: string
+        example: SUCCESS
+      data:
+        type: array
+        items:
+          require:
+            - store_name
+            - order_of_people
+            - order_num
+            - total_fee
+            - increase_percent
+            - integral
+            - pay_fee
+            - max_fee
+          properties:
+            store_name:
+              description: 便利店
+              type: string
+              example: 安心总部
+            order_of_people:
+              description: 下单人数
+              type: string
+              example: '2'
+            order_num:
+              description: 订单数量
+              type: string
+              example: '2'
+            total_fee:
+              description: 订单金额
+              type: integer
+              example: '100'
+            increase_percent:
+              description: 金额增长比例
+              type: string
+              example: '90%'
+            integral:
+              description: 使用积分
+              type: integer
+              example: '1000'
+            pay_fee:
+              description: 实际支付金额
+              type: integer
+              example: '1000'
+            max_fee:
+              description: 单笔最高金额
+              type: integer
+              example: '10'
+          type: object
+    type: object
+  chartSales:
+    title: 销量汇总日图表
+    description: 销量汇总日图表
+    properties:
+      code:
+        type: string
+        example: SUCCESS
+      msg:
+        type: string
+        example: SUCCESS
+      data:
+        type: array
+        items:
+          require:
+            - depot_name
+            - total_fee
+            - day
+          properties:
+            depot_name:
+              description: 便利店
+              type: string
+              example: 安心总部
+            total_fee:
+              description: 使用积分
+              type: integer
+              example: '1000'
+            day:
+              description: 日期
+              type: string
+              example: '2017-01-25'
+          type: object
+    type: object
+  profitChartResponse:
+    title: 利润汇总报表
+    description: 利润汇总报表
+    properties:
+      msg:
+        type: string
+        example: SUCCESS
+      code:
+        type: string
+        example: SUCCESS
+      count:
+        type: integer
+        example: 50
+      data:
+        type: array
+        items:
+          required:
+            - name
+            - data
+          properties:
+            name:
+              description: 门店名称
+              type: string
+              example: '安歆总部'
+            data:
+              description: 一个月的数据
+              type: array
+              example:
+                - 1
+                - 2
+          type: object
+    type: object
+  avgSales:
+    title: 当月均值报表
+    description: 当月均值报表
+    properties:
+      msg:
+        type: string
+        example: SUCCESS
+      code:
+        type: string
+        example: SUCCESS
+      has_info:
+        type: boolean
+        example: true
+      data:
+        properties:
+          depot_name:
+            type: string
+            description: 门店
+            example: '安心总部'
+          total_bed:
+            type: integer
+            description: 总床位数
+            example: 1
+          rental_bed:
+            description: 出租床位数
+            type: integer
+            example: 1
+          checkin_bed:
+            description: 实际入住人数
+            type: integer
+            example: 1
+          total_fee:
+            description: 便利店当月平均销售额
+            type: integer
+            example: 1
+          store_id:
+            description: 门店id
+            type: integer
+            example: 1
+        type: object
+    type: object
+  updateAvgSales:
+    title: 更新单月均值报表的门店床位数
+    description: 更新单月均值报表的门店床位数
+    properties:
+      store_id:
+        description: 门店id
+        type: integer
+        example: 1
+      day:
+        description: 日期
+        type: string
+        example: '2017-11-22'
+      total_bed:
+        description: 门店总床位数
+        type: integer
+        example: '1'
+      rental_bed:
+        description: 出租床位数
+        type: integer
+        example: 2
+      checkin_bed:
+        description: 实际入住人数
+        type: integer
+        example: '1'
+    type: object
+  avgSalesChart:
+    title: 当月均值图表
+    description: 当月均值图表
+    properties:
+      msg:
+        type: string
+        example: SUCCESS
+      code:
+        type: string
+        example: SUCCESS
+      count:
+        type: integer
+        example: 50
+      data:
+        properties:
+          data:
+            type: array
+            description: 当月报表数据
+            example:
+              - '1'
+              - '2'
+          data_time:
+            type: array
+            description: 总时间轴
+            example:
+              - '2017-11-10'
+              - '2017-11-11'
+        type: object
+    type: object
+  dailyRefund:
+    title: 退货汇总日报表
+    description: 退货汇总日报表
+    properties:
+      code:
+        type: string
+        example: SUCCESS
+      msg:
+        type: string
+        example: SUCCESS
+      data:
+        type: array
+        items:
+          require:
+            - day
+            - refund_count
+            - refund_money
+            - refund_integral
+            - refund_wastage_money
+            - max_number_title
+            - max_money_depot_name
+          properties:
+            depot_name:
+              description: 日期
+              type: string
+              example: '2017年9月10日'
+            refund_count:
+              description: 退货商品总数
+              type: integer
+              example: 1
+            refund_money:
+              description: 退款金额
+              type: integer
+              example: 2.9
+            refund_integral:
+              description: 退货总积分
+              type: integer
+              example: 100
+            refund_wastage_money:
+              description: 退货损耗金额
+              type: integer
+              example: 10
+            max_number_title:
+              description: 数量最多商品
+              type: string
+              example: '啤酒'
+            max_money_depot_name:
+              description: 金额最高门店
+              type: string
+              example: '总部'
+          type: object
+    type: object
+  depotRefundDetail:
+    title: 退货门店详情表
+    description: 退货门店详情表
+    properties:
+      code:
+        type: string
+        example: SUCCESS
+      msg:
+        type: string
+        example: SUCCESS
+      data:
+        type: array
+        items:
+          require:
+            - depot_name
+            - refund_count
+            - refund_money
+            - refund_integral
+            - refund_wastage_money
+            - max_number_title
+            - max_money_title
+          properties:
+            depot_name:
+              description: 便利店
+              type: string
+              example: '安心总部'
+            refund_count:
+              description: 退货商品总数
+              type: integer
+              example: 1
+            refund_money:
+              description: 退款金额
+              type: integer
+              example: 2.9
+            refund_integral:
+              description: 退货总积分
+              type: integer
+              example: 100
+            refund_wastage_money:
+              description: 退货损耗金额
+              type: integer
+              example: 10
+            max_number_title:
+              description: 数量最多商品
+              type: string
+              example: '啤酒'
+            max_money_title:
+              description: 金额最高商品
+              type: string
+              example: '啤酒'
+          type: object
+    type: object
+  depotRefundGoodsDetail:
+    title: 门店退货商品详情表
+    description: 门店退货商品详情表
+    properties:
+      code:
+        type: string
+        example: SUCCESS
+      msg:
+        type: string
+        example: SUCCESS
+      data:
+        type: array
+        items:
+          require:
+            - goods_title
+            - buy_count
+            - refund_count
+            - refund_money
+            - num
+          properties:
+            goods_title:
+              description: 品名
+              type: string
+              example: '水'
+            buy_count:
+              description: 今日销量
+              type: integer
+              example: 1
+            refund_count:
+              description: 退货数量
+              type: integer
+              example: 2.9
+            refund_money:
+              description: 退货金额
+              type: integer
+              example: 100
+            num:
+              description: 序号
+              type: integer
+              example: 1
+          type: object
+    type: object
+  refundGoods:
+    title: 退货商品汇总表
+    description: 退货商品汇总表
+    properties:
+      code:
+        type: string
+        example: SUCCESS
+      msg:
+        type: string
+        example: SUCCESS
+      data:
+        type: array
+        items:
+          require:
+            - num
+            - goods_title
+            - buy_count
+            - refund_count
+            - refund_money
+            - depot_name
+          properties:
+            num:
+              description: 序号
+              type: integer
+              example: 1
+            goods_title:
+              description: 品名
+              type: string
+              example: '水'
+            buy_count:
+              description: 今日销量
+              type: integer
+              example: 1
+            refund_count:
+              description: 退货数量
+              type: integer
+              example: 2.9
+            refund_money:
+              description: 退货金额
+              type: integer
+              example: 100
+            depot_name:
+              description: 数量最多门店
+              type: string
+              example: '总部'
+          type: object
+    type: object
+  totalSales:
+    title: 销量汇总报表
+    description: 销量汇总报表
+    properties:
+      code:
+        type: string
+        example: SUCCESS
+      msg:
+        type: string
+        example: SUCCESS
+      data:
+        type: array
+        items:
+          require:
+            - day
+            - store_name
+            - order_of_people
+            - order_num
+            - total_fee
+            - increase_percent
+            - integral
+            - pay_fee
+            - max_fee
+          properties:
+            day:
+              description: 日期
+              type: string
+              example: '2017/11/1~2017/11/15'
+            store_name:
+              description: 便利店
+              type: string
+              example: 安心总部
+            order_of_people:
+              description: 下单人数
+              type: string
+              example: '2'
+            order_num:
+              description: 订单数量
+              type: string
+              example: '2'
+            total_fee:
+              description: 订单金额
+              type: integer
+              example: '100'
+            increase_percent:
+              description: 金额增长比例
+              type: string
+              example: '90%'
+            integral:
+              description: 使用积分
+              type: integer
+              example: '1000'
+            pay_fee:
+              description: 实际支付金额
+              type: integer
+              example: '1000'
+            max_fee:
+              description: 单笔最高金额
+              type: integer
+              example: '10'
+          type: object
+    type: object
+  integralCollectResponse:
+    title: 积分汇总报表
+    description: 积分汇总报表
+    properties:
+      msg:
+        type: string
+        example: SUCCESS
+      code:
+        type: string
+        example: SUCCESS
+      count:
+        type: integer
+        example: 50
+      data:
+        properties:
+          day:
+            type: string
+            description: 日期
+            example: '2017-05-06'
+          get:
+            type: integer
+            description: 发放积分总数
+            example: 1
+          get_of_people:
+            description: 发放人数
+            type: integer
+            example: 1
+          use:
+            description: 使用积分总数
+            type: integer
+            example: 1
+          use_of_people:
+            description: 使用人数
+            type: integer
+            example: 1
+          yibai:
+            description: 积分数量小于100的人数
+            type: integer
+            example: 1000
+          yibai_liangbai:
+            description: 积分数量大于100小于200的人数
+            type: integer
+            example: 1000
+          liangbai_liubai:
+            description: 积分数量大于200小于600的人数
+            type: integer
+            example: 1000
+          liubai:
+            description: 积分数量大600的人数
+            type: integer
+            example: 1000
+          has_integral:
+            description: 持有积分的用户数
+            type: integer
+            example: 1000
+          has_integral_total:
+            description: 持有积分总数
+            type: integer
+            example: 1000
+          max_integral:
+            description: 单人最高积分数
+            type: integer
+            example: 1000
+        type: object
+    type: object
+  report:
+    title: 利润报表
+    description: 利润报表
+    properties:
+      store_name:
+        description: 门店
+        type: string
+        example: 安心总部
+      order_num:
+        description: 订单数量
+        type: string
+        example: '2'
+      order_of_people:
+        description: 下单人数
+        type: string
+        example: '2'
+      avg_price:
+        description: 商品进价
+        type: integer
+        example: '100'
+      total_fee:
+        description: 实际支付
+        type: integer
+        example: '1000'
+      integral:
+        description: 使用积分
+        type: integer
+        example: '1000'
+      refund_wastage_money:
+        description: 售后损耗金额
+        type: integer
+        example: '10'
+      day:
+        description: 时间
+        type: string
+        example: 2017.02.03
+      check_loss:
+        description: 盘库损耗
+        type: string
+        example: '20'
+      gross_profit:
+        description: 毛利润
+        type: string
+        example: '201'
+      net_profit:
+        description: 净利润(含积分)
+        type: string
+        example: '202'
+      net_profit_no_integral:
+        description: 净利润(不含积分)
+        type: string
+        example: '202'
+    type: object
+  sales:
+    title: 门店销量报表
+    description: 门店销量报表
+    properties:
+      code:
+        type: string
+        example: SUCCESS
+      msg:
+        type: string
+        example: SUCCESS
+      data:
+        type: array
+        items:
+          required:
+            - day
+            - store_name
+            - title
+            - num
+            - refund_count
+          properties:
+            day:
+              description: 日期
+              type: integer
+              example: 1
+            store_name:
+              description: 门店名称
+              type: string
+              example:
+                安歆总部店
+            title:
+              description: 商品名称
+              type: string
+              example:
+                商品名称
+            num:
+              description: 销量
+              type: string
+              example:
+                100
+            refund_count:
+              description: 退订
+              type: string
+              example:
+                100
+          type: object
+    type: object
+  purchase:
+    title: 进货报表
+    description: 进货报表
+    properties:
+      code:
+        type: string
+        example: SUCCESS
+      msg:
+        type: string
+        example: SUCCESS
+      data:
+        type: array
+        items:
+          required:
+            - day
+            - store_name
+            - category_name
+            - title
+            - purchase_price
+            - current_price
+            - add_stock
+          properties:
+            day:
+              description: 日期
+              type: integer
+              example: 1
+            store_name:
+              description: 门店名称
+              type: string
+              example:
+                安歆总部店
+            category_name:
+              description: 分类名称
+              type: string
+              example:
+                分类名称
+            title:
+              description: 商品名称
+              type: string
+              example:
+                商品名称
+            purchase_price:
+              description: 商品进价
+              type: string
+              example:
+                100
+            current_price:
+              description: 商品售价
+              type: string
+              example:
+                120
+            add_stock:
+              description: 进货数量
+              type: string
+              example:
+                130
+          type: object
+      count:
+        description: 数量
+        type: integer
+        example:
+          20
+    type: object
+  integralSendResponse:
+    title: 积分发放情况表
+    description: 积分发放情况表
+    properties:
+      msg:
+        type: string
+        example: SUCCESS
+      code:
+        type: string
+        example: SUCCESS
+      count:
+        type: integer
+        example: 50
+      data:
+        properties:
+          day:
+            type: string
+            description: 日期
+            example: '2017-05-06'
+          total:
+            type: integer
+            description: 发放积分总数
+            example: 1
+          people:
+            description: 发放人数
+            type: integer
+            example: 1
+          checkin:
+            description: 签到
+            type: integer
+            example: 1
+          shop_cost:
+            description: 购物
+            type: integer
+            example: 1
+          cost_refund:
+            description: 退回积分
+            type: integer
+            example: 1
+          luck_draw_get:
+            description: 转盘抽奖
+            type: integer
+            example: 1000
+          guessing_get:
+            description: 积分竞猜
+            type: integer
+            example: 1000
+          special_offer:
+            description: 每日特惠任务
+            type: integer
+            example: 1000
+          login:
+            description: 首次登录
+            type: integer
+            example: 1000
+          upload_face_img:
+            description: 首次上传头像
+            type: integer
+            example: 1000
+          first_cost:
+            description: 首次消费
+            type: integer
+            example: 1000
+          send:
+            description: 后台发放
+            type: integer
+            example: 1000
+          scan_get:
+            description: 扫码
+            type: integer
+            example: 1000
+          all_cost:
+            description: 缴费达人
+            type: integer
+            example: 1000
+        type: object
+    type: object
+  couponResponse:
+    title: 优惠券统计表
+    description: 优惠券统计表
+    properties:
+      msg:
+        type: string
+        example: SUCCESS
+      code:
+        type: string
+        example: SUCCESS
+      count:
+        type: integer
+        example: 50
+      data:
+        properties:
+          day:
+            type: string
+            description: 日期
+            example: '2017-05-06'
+          send_coupon_num:
+            type: integer
+            description: 优惠券发放总数
+            example: 1
+          use_coupon_num:
+            description: 优惠券使用总数
+            type: integer
+            example: 1
+          overdue_coupon:
+            description: 优惠券过期总数
+            type: integer
+            example: 1
+          refund_coupon_num:
+            description: 优惠券退回总数
+            type: integer
+            example: 1
+          order_num:
+            description: 订单数
+            type: integer
+            example: 1
+          total_fee:
+            description: 订单金额
+            type: integer
+            example: 1000
+          coupon_fee:
+            description: 优惠金额
+            type: integer
+            example: 1000
+          integral:
+            description: 使用积分
+            type: integer
+            example: 1000
+          pay_fee:
+            description: 实际支付
+            type: integer
+            example: 1000
+          avg_price:
+            description: 商品进价
+            type: integer
+            example: 1000
+          refund_money:
+            description: 退款金额
+            type: integer
+            example: 1000
+          gross_profit_integral:
+            description: 毛利润（含积分）
+            type: integer
+            example: 1000
+          gross_profit:
+            description: 毛利润（不含积分）
+            type: integer
+            example: 1000
+        type: object
+    type: object
+  integralSendChart:
+    title: 积分发送情况表图表
+    description: 积分发送情况表图表
+    properties:
+      msg:
+        type: string
+        example: SUCCESS
+      code:
+        type: string
+        example: SUCCESS
+      data:
+        type: array
+        items:
+          required:
+            - list
+            - data_time
+          properties:
+            list:
+              description: 发送积分数据
+              type: array
+              items:
+                required:
+                  - name
+                  - data
+                properties:
+                  name:
+                    description: 折线名称
+                    type: string
+                    example: '总计'
+                  data:
+                    description: 数据
+                    type: array
+                    example:
+                      - '1'
+                      - '2'
+            data_time:
+              description: X时间轴
+              type: array
+              example:
+                - '2017-12-09'
+                - '2017-12-10'
+          type: object
+    type: object
+  dailyGoodsCheck:
+    title: 商品盘点日报表
+    description: 商品盘点日报表
+    properties:
+      code:
+        type: string
+        example: SUCCESS
+      msg:
+        type: string
+        example: SUCCESS
+      data:
+        type: array
+        items:
+          require:
+            - id
+            - title
+            - yesterday_stock
+            - yesterday_purchase_price
+            - avg_price
+            - add_stock
+            - purchase_price
+            - sales_num
+            - current_price
+            - sales_total_price
+            - stock
+            - weighting_avg_prince
+            - today_total
+            - last_month_purchase_avg_price
+            - last_month_purchase_price
+            - last_month_add_stock
+            - sale_avg_price
+          properties:
+            id:
+              description: 序号
+              type: integer
+              example: 1
+            title:
+              description: 品名
+              type: string
+              example: '矿泉水'
+            yesterday_stock:
+              description: 库存数量
+              type: integer
+              example: 2
+            yesterday_purchase_price:
+              description: 存货金额
+              type: integer
+              example: 100
+            avg_price:
+              description: 进价/进货规格
+              type: integer
+              example: 10
+            add_stock:
+              description: 进货量（进货规格）
+              type: integer
+              example: 1000
+            purchase_price:
+              description: 采购金额合计
+              type: integer
+              example: 1000
+            sales_num:
+              description: 销售数量
+              type: integer
+              example: '10'
+            current_price:
+              description: 销售单价
+              type: integer
+              example: '10'
+            sales_total_price:
+              description: 销售金额
+              type: integer
+              example: '10'
+            stock:
+              description: 剩余库存
+              type: integer
+              example: '10'
+            weighting_avg_prince:
+              description: 加权平均单价
+              type: integer
+              example: '10'
+            today_total:
+              description: 结余合计
+              type: integer
+              example: '10'
+            last_month_purchase_avg_price:
+              description: 上月进货（进价、进货规格）
+              type: integer
+              example: '10'
+            last_month_purchase_price:
+              description: 上月进货（采购金额合计）
+              type: integer
+              example: '10'
+            last_month_add_stock:
+              description: 上月进货（进货量、进货规格）
+              type: integer
+              example: '10'
+            sale_avg_price:
+              description: 今日销售（销售成本）
+              type: integer
+              example: '10'
+          type: object
+    type: object
+  dailyWastageList:
+    title: 损耗汇总日报表
+    description: 损耗汇总日报表
+    properties:
+      code:
+        type: string
+        example: SUCCESS
+      msg:
+        type: string
+        example: SUCCESS
+      data:
+        type: array
+        items:
+          require:
+            - day
+            - time
+            - depot_count
+            - diff_depot_count
+            - wastage_count
+            - wastage_money
+            - refund_wastage
+            - total_money
+          properties:
+            day:
+              description: 日期
+              type: string
+              example: 08月09日
+            time:
+              description: 时间
+              type: string
+              example: '2017-09-15'
+            depot_count:
+              description: 盘点门店数量
+              type: string
+              example: '总部'
+            diff_depot_count:
+              description: 差异门店数量
+              type: integer
+              example: 2
+            wastage_count:
+              description: 盘点差异商品数量
+              type: integer
+              example: 100
+            wastage_money:
+              description: 盘点金额差异
+              type: integer
+              example: 10
+            refund_wastage:
+              description: 退货损耗金额
+              type: integer
+              example: 1000
+            total_money:
+              description: 合计损耗金额
+              type: integer
+              example: 1000
+          type: object
+    type: object
+  goodsWastageList:
+    title: 损耗门店详情表
+    description: 损耗门店详情表
+    properties:
+      code:
+        type: string
+        example: SUCCESS
+      msg:
+        type: string
+        example: SUCCESS
+      data:
+        type: array
+        items:
+          require:
+            - id
+            - title
+            - origin_count
+            - current_count
+            - diff_count
+            - diff_money
+          properties:
+            id:
+              description: 序号
+              type: integer
+              example: 1
+            title:
+              description: 品名
+              type: string
+              example: '水'
+            origin_count:
+              description: 原库存数量
+              type: integer
+              example: 2
+            current_count:
+              description: 调整后数量
+              type: integer
+              example: 100
+            diff_count:
+              description: 数量差值
+              type: integer
+              example: 10
+            diff_money:
+              description: 金额差值
+              type: integer
+              example: 1000
+          type: object
+    type: object
+  monthWastageList:
+    title: 损耗汇总月报表
+    description: 损耗汇总月报表
+    properties:
+      code:
+        type: string
+        example: SUCCESS
+      msg:
+        type: string
+        example: SUCCESS
+      data:
+        type: array
+        items:
+          require:
+            - day
+            - wastage_depot_count
+            - diff_depot_count
+            - wastage_count
+            - wastage_money
+            - refund_wastage
+            - total_money
+          properties:
+            day:
+              description: 日期
+              type: string
+              example: 2017年10月
+            wastage_depot_count:
+              description: 盘点门店数量
+              type: integer
+              example: 1
+            diff_depot_count:
+              description: 差异门店数量
+              type: integer
+              example: 1
+            wastage_count:
+              description: 盘点差异商品数量
+              type: integer
+              example: 100
+            wastage_money:
+              description: 盘点金额差异
+              type: integer
+              example: 10
+            refund_wastage:
+              description: 退货损耗金额
+              type: integer
+              example: 1000
+            total_money:
+              description: 合计损耗金额
+              type: integer
+              example: 1000
+          type: object
+    type: object
+  shipping:
+    title: 订单配送报表
+    description: 订单配送报表
+    properties:
+      code:
+        type: string
+        example: SUCCESS
+      msg:
+        type: string
+        example: SUCCESS
+      list:
+        type: array
+        items:
+          required:
+            - id
+            - start_time
+            - end_time
+            - shipping_count
+            - shipping_fee
+            - subsidy_shipping_fee
+            - order_count
+          properties:
+            id:
+              description: 报表id
+              type: integer
+              example: 1
+            start_time:
+              description: 开始时间
+              type: string
+              example:
+                2017.06.06
+            end_time:
+              description: 结束时间
+              type: string
+              example:
+                2017.06.06
+            shipping_count:
+              description: 配送单数量
+              type: string
+              example:
+                100
+            shipping_fee:
+              description: 配送费用
+              type: string
+              example:
+                10.5
+            subsidy_shipping_fee:
+              description: 补贴配送费用
+              type: string
+              example:
+                100
+            order_count:
+              description: 总订单数
+              type: string
+              example:
+                100
+          type: object
+      count:
+        description: 总数
+        type: integer
+        example: '1000'
+    type: object
+  shippingCourier:
+      title: 订单配送员报表
+      description: 订单配送员报表
+      properties:
+        code:
+          type: string
+          example: SUCCESS
+        msg:
+          type: string
+          example: SUCCESS
+        list:
+          type: array
+          items:
+            required:
+              - id
+              - shipping_count
+              - shipping_fee
+              - subsidy_shipping_fee
+              - courier_id
+              - courier_name
+            properties:
+              id:
+                description: 报表id
+                type: integer
+                example: 1
+              shipping_count:
+                description: 配送单数量
+                type: string
+                example:
+                  100
+              shipping_fee:
+                description: 配送费用
+                type: string
+                example:
+                  10.5
+              subsidy_shipping_fee:
+                description: 补贴配送费用
+                type: string
+                example:
+                  100
+              courier_id:
+                description: 配送员id
+                type: integer
+                example:
+                  1
+              courier_name:
+                description: 配送员名称
+                type: string
+                example:
+                  张三
+            type: object
+      type: object
+  shippingCourierOrder:
+      title: 配送员的订单列表
+      description: 配送员的订单列表
+      properties:
+        code:
+          type: string
+          example: SUCCESS
+        msg:
+          type: string
+          example: SUCCESS
+        list:
+          type: array
+          items:
+            required:
+              - id
+              - order_sn
+              - confirm_time
+              - total_fee
+            properties:
+              id:
+                description: 配送单id
+                type: integer
+                example: 1
+              order_sn:
+                description: 订单号
+                type: string
+                example:
+                  O201707311603445381
+              confirm_time:
+                description: 收货时间
+                type: string
+                example:
+                  2017.06.06 12:41:00
+              total_fee:
+                description: 订单金额
+                type: string
+                example:
+                  100
+            type: object
+        count:
+          description: 总数
+          type: integer
+          example: '1000'
+      type: object
+  storeWastageList:
+    title: 损耗门店详情表
+    description: 损耗门店详情表
+    properties:
+      code:
+        type: string
+        example: SUCCESS
+      msg:
+        type: string
+        example: SUCCESS
+      data:
+        type: array
+        items:
+          require:
+            - depot_name
+            - is_check
+            - diff_goods_count
+            - diff_wastage_money
+            - refund_wastage_money
+            - refund_wastage_money
+          properties:
+            depot_name:
+              description: 便利店
+              type: string
+              example: '总部'
+            is_check:
+              description: 是否盘点
+              type: string
+              example: 'true'
+            diff_goods_count:
+              description: 盘点差异商品数量
+              type: integer
+              example: 2
+            diff_wastage_money:
+              description: 盘点金额差异
+              type: integer
+              example: 100
+            refund_wastage_money:
+              description: 退货损耗金额
+              type: integer
+              example: 10
+            total_wastage_money:
+              description: 合计损耗金额
+              type: integer
+              example: 1000
+          type: object
+    type: object
+  weekWastageList:
+    title: 损耗汇总周报表
+    description: 损耗汇总周报表
+    properties:
+      code:
+        type: string
+        example: SUCCESS
+      msg:
+        type: string
+        example: SUCCESS
+      data:
+        type: array
+        items:
+          require:
+            - day
+            - wastage_depot_count
+            - diff_depot_count
+            - wastage_count
+            - wastage_money
+            - refund_wastage
+            - total_money
+          properties:
+            day:
+              description: 日期
+              type: string
+              example: 2017/10/01-2017/10/07
+            wastage_depot_count:
+              description: 盘点门店数量
+              type: integer
+              example: 1
+            diff_depot_count:
+              description: 差异门店数量
+              type: integer
+              example: 1
+            wastage_count:
+              description: 盘点差异商品数量
+              type: integer
+              example: 100
+            wastage_money:
+              description: 盘点金额差异
+              type: integer
+              example: 10
+            refund_wastage:
+              description: 退货损耗金额
+              type: integer
+              example: 1000
+            total_money:
+              description: 合计损耗金额
+              type: integer
+              example: 1000
+          type: object
+    type: object
+  monthlyGoodsCheckResponse:
+    title: 商品盘点月报表
+    description: 商品盘点月报表
+    properties:
+      code:
+        description: 状态码
+        type: string
+        example: SUCCESS
+      msg:
+        description: 接口返回描述
+        type: string
+        example: SUCCESS
+      list:
+        type: array
+        items:
+          properties:
+            id:
+              description: 序号
+              type: integer
+              example: 1
+            title:
+              description: 商品名
+              type: string
+              example: '格力高 百力滋微辣比萨味 65g克/盒'
+            goods_id:
+              description: 商品ID
+              type: integer
+              example: 1
+            last_month_stock:
+              description: 上月末库存数量
+              type: integer
+              example: 1
+            last_month_stock_money:
+              description: 上月末存货金额
+              type: string
+              example: 1000.00
+            avg_price:
+              description: 本月进货--进价
+              type: string
+              example: 1000.00
+            add_stock:
+              description: 本月进货--进货量
+              type: string
+              example: 1000.00
+            purchase_price:
+              description: 本月进货-采购金额合计
+              type: string
+              example: 1000.00
+            sales_num:
+              description: 本月销售-销售数量
+              type: integer
+              example: 500
+            current_price:
+              description: 本月销售-销售单价
+              type: string
+              example: 10000.00
+            sales_total_price:
+              description: 本月销售-销售金额
+              type: string
+              example: 1000.00
+            stock:
+              description: 本月末-剩余库存
+              type: integer
+              example: 5500
+            weighting_avg_prince:
+              description: 本月末-加权平均单价
+              type: string
+              example: 1100.00
+            today_total:
+              description: 本月末-结余合计
+              type: string
+              example: 100.00
+            last_month_purchase_avg_price:
+              description: 上月进货（进价、进货规格）
+              type: integer
+              example: '10'
+            last_month_purchase_price:
+              description: 上月进货（采购金额合计）
+              type: integer
+              example: '10'
+            last_month_add_stock:
+              description: 上月进货（进货量、进货规格）
+              type: integer
+              example: '10'
+            sale_avg_price:
+              description: 今日销售（销售成本）
+              type: integer
+              example: '10'
+          type: object
+    type: object
+  stockWarnResponse:
+    title: 库存预警
+    description: 库存预警
+    properties:
+      code:
+        type: string
+        example: SUCCESS
+      msg:
+        type: string
+        example: SUCCESS
+      data:
+        type: array
+        items:
+          properties:
+            num:
+              description: 总销量
+              type: integer
+              example: 2000
+            title:
+              description: 商品名称
+              type: string
+              example: '百事可乐'
+            day:
+              description: 销售日期
+              type: integer
+              example: 10
+            type:
+              description: 类别
+              type: string
+              example: '饼干'
+            stock:
+              description: 当前库存
+              type: integer
+              example: 100
+            sales_volume:
+              description: 日均销量
+              type: integer
+              example: 100
+            notice:
+              description: 库存状态
+              type: string
+              example: 缺货
+          type: object
+    type: object
+  businessProfitResponse:
+    title: 营业情况汇总（周/月）表
+    description: 营业情况汇总（周/月）表
+    properties:
+      msg:
+        type: string
+        example: SUCCESS
+      code:
+        type: string
+        example: SUCCESS
+      data:
+        properties:
+          depot_name:
+            type: string
+            description: 便利店
+            example: '总部店'
+          order_of_people:
+            type: integer
+            description: 下单人数
+            example: 1
+          order_num:
+            type: integer
+            description: 订单数量
+            example: 1
+          total_fee:
+            description: 订单金额
+            type: integer
+            example: 1
+          increase_money_percent:
+            description: 金额增长比例
+            type: integer
+            example: 1
+          integral:
+            description: 使用积分
+            type: integer
+            example: 1
+          coupon_fee:
+            description: 优惠券抵扣
+            type: integer
+            example: 1
+          pay_fee:
+            description: 实际支付
+            type: integer
+            example: 1000
+          check_loss:
+            description: 盘点损耗
+            type: integer
+            example: 1000
+          refund_wastage_money:
+            description: 退货损耗
+            type: integer
+            example: 1000
+          wastage_rate:
+            description: 损耗率
+            type: integer
+            example: 1000
+          refund_money:
+            description: 退款金额
+            type: integer
+            example: 1000
+          refund_integral:
+            description: 退货积分
+            type: integer
+            example: 1000
+          net_profit_integral:
+            description: 净利润（含积分）
+            type: integer
+            example: 1000
+          net_profit:
+            description: 净利润（不含积分）
+            type: integer
+            example: 1000
+          net_rate:
+            description: 净利率
+            type: integer
+            example: 1000
+          max_total_fee:
+            description: 单笔金额最高
+            type: integer
+            example: 1000
+          wastage_count:
+            description: 盘点次数
+            type: integer
+            example: 1000
+          total_avg_price:
+            description: 商品进价
+            type: integer
+            example: 1000
+        type: object
+    type: object
+  businessProfitWeeklyResponse:
+    title: 营业情况汇总（周/月）表
+    description: 营业情况汇总（周/月）表
+    properties:
+      msg:
+        type: string
+        example: SUCCESS
+      code:
+        type: string
+        example: SUCCESS
+      count:
+        type: string
+        example: '20'
+      data:
+        properties:
+          day:
+            type: string
+            description: 日期
+            example: '2018/01/01 ~ 2018-01-07（2018年1月）'
+          depot_name:
+            type: string
+            description: 便利店
+            example: '总部店'
+          order_of_people:
+            type: integer
+            description: 下单人数
+            example: 1
+          order_num:
+            type: integer
+            description: 订单数量
+            example: 1
+          total_fee:
+            description: 订单金额
+            type: integer
+            example: 1
+          increase_money_percent:
+            description: 金额增长比例
+            type: integer
+            example: 1
+          integral:
+            description: 使用积分
+            type: integer
+            example: 1
+          coupon_fee:
+            description: 优惠券抵扣
+            type: integer
+            example: 1
+          pay_fee:
+            description: 实际支付
+            type: integer
+            example: 1000
+          max_total_fee:
+            description: 单笔金额最高
+            type: integer
+            example: 1000
+          total_avg_price:
+            description: 商品进价
+            type: integer
+            example: 1000
+          wastage_count:
+            description: 盘点次数
+            type: integer
+            example: 1000
+          check_loss:
+            description: 盘点损耗
+            type: integer
+            example: 1000
+          refund_wastage_money:
+            description: 退货损耗
+            type: integer
+            example: 1000
+          wastage_rate:
+            description: 损耗率
+            type: integer
+            example: 1000
+          refund_money:
+            description: 退款金额
+            type: integer
+            example: 1000
+          refund_integral:
+            description: 退货积分
+            type: integer
+            example: 1000
+          net_profit_integral:
+            description: 净利润（含积分）
+            type: integer
+            example: 1000
+          net_profit:
+            description: 净利润（不含积分）
+            type: integer
+            example: 1000
+          net_rate:
+            description: 净利率
+            type: integer
+            example: 1000
+        type: object
+    type: object
+  totalProfitResponse:
+    title: 利润汇总报表
+    description: 利润汇总报表
+    properties:
+      msg:
+        type: string
+        example: SUCCESS
+      code:
+        type: string
+        example: SUCCESS
+      count:
+        type: integer
+        example: 50
+      data:
+        properties:
+          day:
+            type: string
+            description: 日期
+            example: '2017-05-06'
+          order_of_people:
+            type: integer
+            description: 下单人数
+            example: 1
+          order_num:
+            description: 订单数量
+            type: integer
+            example: 1
+          avg_price:
+            description: 商品进价
+            type: integer
+            example: 1
+          total_fee:
+            description: 商品售价
+            type: integer
+            example: 1
+          pay_fee:
+            description: 实际支付
+            type: integer
+            example: 1000
+          integral:
+            description: 使用积分
+            type: integer
+            example: 1000
+          refund_wastage_money:
+            description: 售后损耗金额
+            type: integer
+            example: 1000
+          check_loss:
+            description: 盘库损耗
+            type: integer
+            example: 1000
+          gross_profit:
+            description: 毛利润（含积分）
+            type: integer
+            example: 1000
+          net_profit:
+            description: 净利润（含积分）
+            type: integer
+            example: 1000
+          net_profit_no_integral:
+            description: 净利润(不含积分)
+            type: integer
+            example: 1000
+        type: object
+    type: object
+  profitDetailResponse:
+    title: 利润汇总报表
+    description: 利润汇总报表
+    properties:
+      msg:
+        type: string
+        example: SUCCESS
+      code:
+        type: string
+        example: SUCCESS
+      count:
+        type: integer
+        example: 50
+      data:
+        properties:
+          store_name:
+            type: string
+            description: 便利店
+            example: '安心总部'
+          order_of_people:
+            type: integer
+            description: 下单人数
+            example: 1
+          order_num:
+            description: 订单数量
+            type: integer
+            example: 1
+          avg_price:
+            description: 商品进价
+            type: integer
+            example: 1
+          current_price:
+            description: 商品售价
+            type: integer
+            example: 1
+          pay_fee:
+            description: 实际支付
+            type: integer
+            example: 1000
+          integral:
+            description: 使用积分
+            type: integer
+            example: 1000
+          refund_wastage_money:
+            description: 售后损耗金额
+            type: integer
+            example: 1000
+          check_loss:
+            description: 盘库损耗
+            type: integer
+            example: 1000
+          gross_profit:
+            description: 毛利润（含积分）
+            type: integer
+            example: 1000
+          net_profit:
+            description: 净利润（含积分）
+            type: integer
+            example: 1000
+          net_profit_no_integral:
+            description: 净利润(不含积分)
+            type: integer
+            example: 1000
+        type: object
+    type: object
+  refundOrderDetailResponse:
+    title: 退货订单详情列表
+    description: 退货订单详情列表
+    properties:
+      msg:
+        type: string
+        example: SUCCESS
+      code:
+        type: string
+        example: SUCCESS
+      data:
+        type: array
+        items:
+          require:
+            - list
+            - total
+          properties:
+            list:
+              properties:
+                out_trade_no:
+                  type: string
+                  description: 订单编号
+                  example: 'R201712311937587404'
+                total_fee:
+                  type: float
+                  description: 订单总价
+                  example: 2.16
+                name:
+                  description: 便利店
+                  type: string
+                  example: 广州凤凰新村店
+                integral:
+                  description: 积分抵扣
+                  type: integer
+                  example: 1
+                coupon_fee:
+                  description: 优惠券抵扣
+                  type: float
+                  example: 1
+                pay_fee:
+                  description: 实际支付金额
+                  type: float
+                  example: 1000
+                refund_integral:
+                  description: 退货积分
+                  type: integer
+                  example: 1000
+                refund_money:
+                  description: 退款金额
+                  type: float
+                  example: 1000
+                refund_loss:
+                  description: 退货损耗金额
+                  type: integer
+                  example: 1000
+              type: object
+            total:
+              properties:
+                out_trade_no:
+                  type: string
+                  description: 订单编号
+                  example: '--'
+                total_fee:
+                  type: float
+                  description: 订单总价
+                  example: 2.16
+                name:
+                  description: 总计
+                  type: string
+                  example: 总计
+                integral:
+                  description: 积分抵扣
+                  type: integer
+                  example: 1
+                coupon_fee:
+                  description: 优惠券抵扣
+                  type: float
+                  example: 1
+                pay_fee:
+                  description: 实际支付金额
+                  type: float
+                  example: 1000
+                refund_integral:
+                  description: 退货积分
+                  type: integer
+                  example: 1000
+                refund_money:
+                  description: 退款金额
+                  type: float
+                  example: 1000
+                refund_loss:
+                  description: 退货损耗金额
+                  type: integer
+                  example: 1000
+              type: object
+          type: object
+    type: object
+  purchaseListResponse:
+    title: 进货报表（实时查询）
+    description: 进货报表（实时查询）
+    properties:
+      msg:
+        type: string
+        example: SUCCESS
+      code:
+        type: string
+        example: SUCCESS
+      count:
+        type: integer
+        example: 50
+      data:
+        properties:
+          operate_time:
+            type: string
+            description: 操作日期
+            example: '2017-12-03'
+          purchase_time:
+            type: string
+            description: 进货日期
+            example: '2017-12-06'
+          category_name:
+            description: 分类
+            type: string
+            example: '饼干'
+          title:
+            description: 商品名称
+            type: string
+            example: '好丽友 Q蒂多层蛋糕摩卡巧克力味2枚 56g/盒'
+          purchase_price:
+            description: 商品进价
+            type: integer
+            example: 1
+          current_price:
+            description: 商品售价
+            type: integer
+            example: 1000
+          add_stock:
+            description: 进货数量
+            type: integer
+            example: 1000
+        type: object
+    type: object
+  ofRechargeResponse:
+    title: 欧飞充值报表
+    description: 欧飞充值报表
+    properties:
+      msg:
+        type: string
+        example: SUCCESS
+      code:
+        type: string
+        example: SUCCESS
+      count:
+        type: integer
+        example: 50
+      data:
+        properties:
+          pay_time:
+            type: string
+            description:  交易时间
+            example: '2017-05-06'
+          order_sn:
+            type: string
+            description: 系统订单号
+            example: '5589662596'
+          trade_no:
+            description: 支付订单号
+            type: string
+            example: '333333'
+          out_trade_no:
+            description: 欧飞订单号
+            type: string
+            example: 'AX20177854898255555'
+          title:
+            description: 商品名称
+            type: string
+            example: '100元充值'
+          game_userid:
+            description: 充值账号
+            type: string
+            example: '1254897587'
+          sub_title:
+            description: 面值
+            type: integer
+            example: 1000
+          original_price:
+            description: 采购价
+            type: integer
+            example: 1000
+          current_price:
+            description: 销售价
+            type: integer
+            example: 1000
+          total_fee:
+            description: 总金额
+            type: integer
+            example: 1000
+          refund_money:
+            description: 退款金额
+            type: string
+            example: 1000
+          status:
+            description: 退款状态
+            type: string
+            example: '--'
+          pay_type:
+            description: 支付方式
+            type: string
+            example: '支付宝'
+          fee:
+            description: 手续费
+            type: string
+            example: '1'
+        type: object
+    type: object
