@@ -25,6 +25,26 @@ paths:
           in: query
           description: 昵称
           type: string
+        - name: uuid
+          in: query
+          description: uuid
+          type: string
+        - name: u_type
+          in: query
+          description: 账号类型
+          type: string
+        - name: start_time
+          in: query
+          description: 开始时间
+          type: string
+        - name: end_time
+          in: query
+          description: 结束时间
+          type: string
+        - name: type
+          in: query
+          description: 时间筛选类型
+          type: string
       responses:
         '200':
           description: '[SUCCESS]设置成功'
@@ -78,22 +98,139 @@ paths:
             $ref: '#/definitions/roomInfoResponse'
       security:
         - api_key: []
+  /api/reg:
+    get:
+      tags:
+        - Config
+      summary: 注册配置
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/regResponse'
+      security:
+        - api_key: []
+  /api/reg/{id}:
+    put:
+      tags:
+        - Config
+      summary: 更新注册配置
+      parameters:
+        - name: id
+          type: integer
+          in: path
+          required: true
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/EditReg'
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/regResponse'
+      security:
+        - api_key: []
+  /api/sign:
+    get:
+      tags:
+        - Config
+      summary: 签到配置
+      parameters:
+        - name: page
+          in: query
+          required: false
+          description: 页码
+          type: integer
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/signResponse'
+      security:
+        - api_key: []
+  /api/sign/add:
+    post:
+      tags:
+        - Config
+      summary: 添加签到配置
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/signAdd'
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/ApiResponse'
+      security:
+        - api_key: []
+  /api/sign/{id}:
+    put:
+      tags:
+        - Config
+      summary: 更新签到配置
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/signAdd'
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/ApiResponse'
+      security:
+        - api_key: []
+  /api/sign/delete/{id}:
+    delete:
+      tags:
+        - Config
+      summary: 删除签到配置
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: id
+          type: integer
+      responses:
+        '200':
+          description: '[SUCCESS]设置成功'
+          schema:
+            $ref: '#/definitions/ApiResponse'
+      security:
+        - api_key: []
   /api/simplelogin:
     post:
       tags:
         - userInfo
       summary: 管理员登陆
       parameters:
-        - name: username
-          in: formData
-          required: true
-          description: 账号
-          type: string
-        - name: password
-          in: formData
-          required: true
-          description: 密码
-          type: string
+        - name: data
+        in: body
+        description: 用户登录信息
+        required: true
+        schema:
+          required:
+            - username
+            - password
+          properties:
+            username:
+              description: 用户账号
+              type: string
+              example: 'admin'
+            password:
+              description: 用户密码
+              type: string
+              example: 1234qwer
       responses:
         '200':
           description: '[SUCCESS]设置成功'
@@ -266,6 +403,102 @@ definitions:
             type: integer
             example: 1
         type: object
+    type: object
+  regResponse:
+    title: 房间信息
+    description: 房间信息
+    properties:
+      msg:
+        type: string
+        example: SUCCESS
+      code:
+        type: string
+        example: SUCCESS
+      count:
+        type: integer
+        example: 50
+      data:
+        properties:
+          init_gold:
+            type: integer
+            description: 玩家金币
+            example: '87'
+          init_bank:
+            type: string
+            description: 玩家银行资产
+            example: '20'
+          init_card:
+            description: 房卡数量
+            type: string
+            example: '4'
+        type: object
+    type: object
+  signResponse:
+    title: 签到配置列表
+    description: 签到配置列表
+    properties:
+      msg:
+        type: string
+        example: SUCCESS
+      code:
+        type: string
+        example: SUCCESS
+      count:
+        type: integer
+        example: 50
+      data:
+        properties:
+          glod:
+            type: integer
+            description: 金币数量
+            example: '87'
+          card:
+            type: string
+            description: 房卡数量
+            example: '20'
+          days:
+            description: 连续签到天数
+            type: string
+            example: '4'
+        type: object
+    type: object
+  EditReg:
+    title: 注册配置对象
+    description: 注册配置对象
+    properties:
+      id:
+        description: 注册配置表 ID
+        type: integer
+        example: 3
+      init_gold:
+        description: 初始化的玩家金币
+        type: integer
+        example: 1
+      init_bank:
+        description: 初始化的玩家银行资产
+        type: integer
+        example: 2
+      init_card:
+        description: 初始化的玩家房卡数量
+        type: integer
+        example: 23
+    type: object
+  signAdd:
+    title: 签到配置对象
+    description: 签到配置对象
+    properties:
+      glod:
+        description: 奖励的金币数量
+        type: integer
+        example: 2
+      card:
+        description: 奖励的房卡数量
+        type: integer
+        example: 5
+      days:
+        description: 连续签到天数
+        type: integer
+        example: 5
     type: object
 securityDefinitions:
   api_key:

@@ -1,5 +1,6 @@
 imports:
     - { resource: config.yml }
+    - { resource: /http/work/database/parameters.yml }
 
 #doctrine:
 #    orm:

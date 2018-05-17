@@ -17,6 +17,7 @@ interface Info
     const TYPE_WECHART = 2;//微信
     const SEX_MAN = 1;//性别男
     const SEX_WOMAN = 0;//性别女
+    const SEX_UNKONW = 2;//未知
 
     const STATUS_ARR = [
         self::STATUS_NOMAL  => '正常',
@@ -32,5 +33,6 @@ interface Info
     const SEX_ARR = [
         self::SEX_MAN   => '男',
         self::SEX_WOMAN => '女',
+        self::SEX_UNKONW => '未知',
     ];
 }

@@ -2,8 +2,8 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="b368f35d-542e-420c-9d36-cf8b911ddf7b" name="dsmj-api" url="http://101.132.172.166">
-        <fileTransfer host="101.132.172.166" port="22" rootFolder="/var/www/dsmj" accessType="SFTP">
+      <webServer id="b368f35d-542e-420c-9d36-cf8b911ddf7b" name="dsmj-api" url="http://47.104.218.169">
+        <fileTransfer host="47.104.218.169" port="22" rootFolder="/home/work/dsmj" accessType="SFTP">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" />
           </advancedOptions>

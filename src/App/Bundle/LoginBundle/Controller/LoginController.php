@@ -28,8 +28,6 @@ class LoginController extends AppApiController
      * @param EntityManagerInterface $entityManager
      *
      * @Route("/api/simplelogin")
-     * @Parameter(name="username", require=true)
-     * @Parameter(name="password", require=true)
      *
      * @return JsonResponse
      * @throws \Doctrine\ORM\NonUniqueResultException
@@ -46,7 +44,7 @@ class LoginController extends AppApiController
         $user = $entityManager->getRepository('AppLoginBundle:GameAdmin')
             ->loadAdminByUserName($userName);
 
-        if ($user === null) {
+        if ($user === NULL) {
             throw new BadRequestHttpException("该用户不存在");
         }
         $helper          = new LoginHelper($user, $this->get('snc_redis.default'));

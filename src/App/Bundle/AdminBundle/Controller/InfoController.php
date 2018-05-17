@@ -25,23 +25,43 @@ class InfoController extends AdminApiController implements Info
      * @Route("/api/user")
      * @Parameter(name="page",require=false)
      * @Parameter(name="unick",require=false)
+     * @Parameter(name="uuid",require=false)
+     * @Parameter(name="u_type",require=false)
+     * @Parameter(name="start_time",require=false)
+     * @Parameter(name="end_time",require=false)
+     * @Parameter(name="type",require=false)
      *
      * @return JsonResponse
      */
     public function indexAction(EntityManagerInterface $entityManager, Request $request)
     {
-        $page  = max($request->query->getInt('page', 1), 1);
-        $nick = $request->query->get('unick');
-        $query = $entityManager->getRepository('AppAdminBundle:UserInfo')->getUserList($page, $nick);
+        $page       = max($request->query->getInt('page', 1), 1);
+        $nick       = $request->query->get('unick', '');
+        $uuid       = $request->query->get('uuid');
+        $u_type     = $request->query->get('u_type');
+        $start_time = $request->query->get('start_time');
+        $end_time   = $request->query->get('end_time');
+        $type       = $request->query->get('type');
+
+        $where = [
+            'unick'       => $nick,
+            'uuid'       => $uuid,
+            'u_type'     => $u_type,
+            'start_time' => $start_time,
+            'end_time'   => $end_time,
+            'type'       => $type,
+        ];
+        $query = $entityManager->getRepository('AppAdminBundle:UserInfo')->getUserList($page, $where);
 
         $page = new Paginator($query);
         $list = [];
+        $i    = 1;
         /** @var UserInfo $item */
         foreach ($page as $item) {
             /** @var UserGame $userGame */
             $userGame = $entityManager->getRepository('AppAdminBundle:UserGame')->findOneBy(['uuid' => $item->getUuid()]);
             $list[]   = [
-                'uid'         => $item->getUid(),
+                'uid'         => $i,
                 'uuid'        => $item->getUuid(),
                 'unick'       => $item->getUnick(),
                 'uphone'      => $item->getUphone(),
@@ -61,6 +81,7 @@ class InfoController extends AdminApiController implements Info
                 'ucard'       => $userGame ? $userGame->getUcard() : 0,
                 'roomid'      => $userGame ? $userGame->getRoomid() : 0,
             ];
+            $i        += 1;
         }
 
         return $this->success([

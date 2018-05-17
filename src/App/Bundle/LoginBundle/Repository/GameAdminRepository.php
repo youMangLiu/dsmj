@@ -18,7 +18,7 @@ class GameAdminRepository extends EntityRepository
      * @author liulian
      * @param $userName
      *
-     * @return mixed|null
+     * @return GameAdmin|null
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function loadAdminByUserName($userName)
@@ -31,6 +31,9 @@ class GameAdminRepository extends EntityRepository
             ->setParameter('acc', $userName)
             ->getQuery()
             ->getOneOrNullResult();
+//        if ($user) {
+//            $this->_em->getCache()->evictEntity('AppLoginBundle:GameAdmin', $user->getId());
+//        }
 
         return $user;
     }
