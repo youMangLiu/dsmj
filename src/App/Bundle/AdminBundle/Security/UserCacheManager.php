@@ -8,6 +8,7 @@
 
 namespace App\Bundle\AdminBundle\Security;
 
+use App\Bundle\LoginBundle\Entity\AdminMaster;
 use App\Bundle\LoginBundle\Entity\GameAdmin;
 use Psr\Cache\CacheItemPoolInterface;
 
@@ -26,12 +27,12 @@ class UserCacheManager
      *
      * @author chenmingming
      *
-     * @param GameAdmin $user
+     * @param AdminMaster $user
      * @throws \Psr\Cache\InvalidArgumentException
      */
-    public function saveUser(GameAdmin $user)
+    public function saveUser(AdminMaster $user)
     {
-        $key   = $this->getKey($user->getUserName());
+        $key   = $this->getKey($user->getAphone());
         $cache = $this->cacheItemPool->getItem($key);
         $cache->set(serialize($user));
         $this->cacheItemPool->save($cache);

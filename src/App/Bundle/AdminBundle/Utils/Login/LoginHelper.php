@@ -10,6 +10,7 @@ namespace App\Bundle\AdminBundle\Utils\Login;
 
 use Anxin\UserBundle\Entity\User;
 use Anxin\UserBundle\Entity\UserLoginLog;
+use App\Bundle\LoginBundle\Entity\AdminMaster;
 use App\Bundle\LoginBundle\Entity\GameAdmin;
 use Doctrine\ORM\EntityManagerInterface;
 use phpseclib\Crypt\AES;
@@ -25,7 +26,7 @@ class LoginHelper
     private $user;
     private $redis;
 
-    public function __construct(GameAdmin $user, \Redis $client)
+    public function __construct(AdminMaster $user, \Redis $client)
     {
         $this->user = $user;
         $this->redis = $client;
@@ -88,7 +89,7 @@ class LoginHelper
             $token = self::generateRandKey(64);
         }
 
-        $this->redis->setex($token, $ttl, $this->user->getUserName() . ':' . ($ttl + time()));
+        $this->redis->setex($token, $ttl, $this->user->getAphone() . ':' . ($ttl + time()));
 
         //保存到用户当前token
         $value = [$token, $ttl];
